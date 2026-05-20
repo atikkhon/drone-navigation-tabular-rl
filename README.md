@@ -8,7 +8,9 @@
 - **Prospect Q-learning** — поведенческий агент, преобразующий награду через функцию ценности Prospect Theory.
 - **Risk-sensitive Q-learning** — риск-чувствительный агент с энтропийным критерием и устойчивой `logU`-реализацией.
 
-![Конфигурация среды](assets/env_layout.png)
+## Дополнительные материалы
+
+[Эссе об актуальности агентного подхода](AGENTS_ESSAY.md) — пояснение, почему агентная постановка подходит для задачи навигации дрона, какие агенты были реализованы и какие действия использовались в среде.
 
 ## Постановка задачи
 
@@ -27,6 +29,10 @@
 | Действия | 16 действий: 4 направления × 4 скорости |
 | Дискретизация | `14 × 14 × 12 × 4 = 9408` состояний |
 | Q-таблица | `9408 × 16 = 150528` значений на агента |
+
+Визуализация среды:
+
+![Конфигурация среды](assets/env_layout.png)
 
 Состояние агента имеет вид `(Δx, Δy, b, v)`, где `Δx` и `Δy` — относительное смещение до станции, `b` — нормированный заряд батареи, `v` — наблюдаемая скорость.
 
@@ -100,11 +106,9 @@
 
 После расширенного обучения агенты находят маршруты к станции через область с препятствиями. Различия в траекториях связаны с тем, что агенты используют разные критерии оценки последствий действия.
 
-| Rational | Prospect |
-|---|---|
-| ![Траектории рационального агента](assets/trajectories_rational.png) | ![Траектории поведенческого агента](assets/trajectories_behavioral.png) |
-
-![Траектории риск-чувствительного агента](assets/trajectories_risk_sensitive.png)
+| Rational | Prospect | Risk-sensitive |
+|---|---|---|
+| ![Траектории рационального агента](assets/trajectories_rational.png) | ![Траектории поведенческого агента](assets/trajectories_behavioral.png) | ![Траектории риск-чувствительного агента](assets/trajectories_risk_sensitive.png)
 
 Карты финального заряда показывают, в каких дискретных областях заканчиваются эпизоды и какой заряд остается у агента.
 
@@ -129,25 +133,7 @@ Welch t-test показал, что различия по времени усп�
 
 ```bash
 pip install numpy matplotlib scipy jupyter
-jupyter notebook LB1_Neurover.ipynb
-```
-
-Рекомендуемая структура репозитория:
-
-```text
-.
-├── LB1_Neurover.ipynb
-├── README.md
-└── assets/
-    ├── env_layout.png
-    ├── learning_curve.png
-    ├── success_time_cdf.png
-    ├── trajectories_rational.png
-    ├── trajectories_behavioral.png
-    ├── trajectories_risk_sensitive.png
-    ├── final_charge_heatmap_rational.png
-    ├── final_charge_heatmap_behavioral.png
-    └── final_charge_heatmap_risk_sensitive.png
+jupyter notebook drone-navigation-tabular-rl.ipynb
 ```
 
 ## Выводы
